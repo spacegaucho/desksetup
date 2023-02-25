@@ -1,7 +1,15 @@
 #!/bin/bash 
 # DESCRIPTION: Install/setup minimum customization for bash.
 
-# export the desired value before installing
+URL_BASHALIASES=
+URL_BASHRC=
+URL_KREWINSTALL=https://gist.githubusercontent.com/spacegaucho/440872661ef5159ce5e70837bd1db335/raw
+URL_STARSHITOML=https://gist.githubusercontent.com/spacegaucho/b3a0be246d2af3a7bde323a587408f12/raw
+URL_VIMRC=
+URL_SKAFFOLD=https://gist.githubusercontent.com/spacegaucho/b3a0be246d2af3a7bde323a587408f12/raw
+URL_INSTALLK3D=https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh
+
+# Export the desired value before installing
 COMMAND_OUT=/tmp/desksetup.out
 
 main() { 
@@ -28,7 +36,7 @@ main() {
   if ! sudo install kubectl /usr/local/bin/; then echo "W: kubectl install failed! Ignore if already installed"; fi
 
   # Install krew
-  if ! curl -s https://gist.githubusercontent.com/spacegaucho/440872661ef5159ce5e70837bd1db335/raw | bash ; then echo "W: krew install failed!"; fi
+  if ! curl -s $URL_KREWINSTALL | bash ; then echo "W: krew install failed!"; fi
   if ! kubectl krew install ctx; then echo "W: ctx install failed!"; fi
   if ! kubectl krew install ns; then echo "W: ns install failed"; fi
 
@@ -47,7 +55,7 @@ EOF
   sudo systemctl restart docker
 
   # Install skaffold
-  if ! curl -Lso skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && \
+  if ! curl -Lso skaffold $URL_SKAFFOLD && \
   sudo install skaffold /usr/local/bin/; then echo "W: skaffold install failed!"; fi
 
   # Install kind
@@ -56,7 +64,7 @@ EOF
   if ! sudo install kind /usr/local/bin; then echo "W: kind install failed"; fi
   
   # Install k3d
-  curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | sudo bash
+  curl -s $URL_INSTALLK3D | sudo bash
 
   # Install fzf
   if ! git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf; then echo "W: fialed clone fzf, exists?"; fi
@@ -64,7 +72,7 @@ EOF
 
   # Install and configure starship
 	mkdir ~/.config || true
-	curl -s https://gist.githubusercontent.com/spacegaucho/b3a0be246d2af3a7bde323a587408f12/raw > ~/.config/starship.toml
+	curl -s $URL_STARSHITOML > ~/.config/starship.toml
 	curl -s https://starship.rs/install.sh -o install_starship.sh
 	sh install_starship.sh -y
 	rm install_starship.sh
