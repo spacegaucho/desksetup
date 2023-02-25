@@ -1,0 +1,9 @@
+#!/bin/bash
+alias ll='ls -halF'
+alias la='ls -hA'
+alias l='ls -hCF'
+alias p='ping'
+alias k="kubectl"
+alias kcx="kubectl-ctx"
+alias kns="kubectl-ns"
+alias tf="terraform"
