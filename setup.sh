@@ -112,11 +112,11 @@ EOF
   set +x
 }
 
-if main &>> $COMMAND_OUT
+if main &>> ${COMMAND_OUT}
 then 
-  echo "OK: setupp succesful"
+  echo "OK: setup succesful"
 else
   echo "ERR: Presse any key to see details"
-  less $COMMAND_OUT
+  less ${COMMAND_OUT}
 fi
  
