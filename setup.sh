@@ -1,16 +1,16 @@
 #!/bin/bash 
 # DESCRIPTION: Install/setup minimum customization for bash.
 
-URL_BASHALIASES=
-URL_BASHRC=
+URL_BASHALIASES=https://gist.githubusercontent.com/spacegaucho/25c8b3f505484e16e1fc11d34075a297/raw
+URL_BASHRC=https://gist.githubusercontent.com/spacegaucho/b062a2f20ad7d67fce7a9156aa23f7f0/raw
 URL_KREWINSTALL=https://gist.githubusercontent.com/spacegaucho/440872661ef5159ce5e70837bd1db335/raw
-URL_STARSHITOML=https://gist.githubusercontent.com/spacegaucho/b3a0be246d2af3a7bde323a587408f12/raw
-URL_VIMRC=
+URL_STARSHIPTOML=https://gist.githubusercontent.com/spacegaucho/b3a0be246d2af3a7bde323a587408f12/raw
+URL_VIMRC=https://gist.github.com/spacegaucho/2fef5c3f386086c2ff937fc85c92f21d/raw
 URL_SKAFFOLD=https://gist.githubusercontent.com/spacegaucho/b3a0be246d2af3a7bde323a587408f12/raw
 URL_INSTALLK3D=https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh
 
 # Export the desired value before installing
-COMMAND_OUT=/tmp/desksetup.out
+COMMAND_OUT=/tmp/desksetup.log
 
 main() { 
   echo "I: starting installation.."
@@ -72,7 +72,7 @@ EOF
 
   # Install and configure starship
 	mkdir ~/.config || true
-	curl -s $URL_STARSHITOML > ~/.config/starship.toml
+	curl -s $URL_STARSHIPTOML > ~/.config/starship.toml
 	curl -s https://starship.rs/install.sh -o install_starship.sh
 	sh install_starship.sh -y
 	rm install_starship.sh
@@ -80,15 +80,15 @@ EOF
   # Vim stuff
   if ! mkdir -p ${HOME}/.vim/autoload ${HOME}/.vim/bundle; then echo "W: failed mkdir for patogen, exists?"; fi
 	curl -LSso ${HOME}/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-  curl -LSso ${HOME}/.vimrc https://gist.github.com/spacegaucho/2fef5c3f386086c2ff937fc85c92f21d/raw
+  curl -LSso ${HOME}/.vimrc $URL_VIMRC
   if ! mkdir -p ${HOME}/.vim/bundle/lightline.vim ; then echo "W: fialed mkdir lightline.vim, exists?"; fi
 	if ! git clone https://github.com/itchyny/lightline.vim ${HOME}/.vim/bundle/lightline.vim; then echo "W: failed clone ligthline.vim, exists?"; fi
 
   # Upd .bashrc
   cp ~/.bashrc{,.bk}
   cp ~/.bash_aliases{,.bk}
-  curl -s https://gist.githubusercontent.com/spacegaucho/b062a2f20ad7d67fce7a9156aa23f7f0/raw > ~/.bashrc
-  curl -s https://gist.githubusercontent.com/spacegaucho/25c8b3f505484e16e1fc11d34075a297/raw > ~/.bash_aliases
+  curl -s $URL_BASHRC > ~/.bashrc
+  curl -s $URL_BASHALIASES > ~/.bash_aliases
   
   # Add tmux configs and cp neovim configs
   set +x
