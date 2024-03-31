@@ -1,0 +1,40 @@
+# Inserts a blank line between shell prompts
+add_newline = true
+
+# Replace the "❯" symbol in the prompt with "➜"
+[character]                            # The name of the module we are configuring is "character"
+success_symbol = "[➜](bold green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
+error_symbol = "[➜](bold red)"
+
+[kubernetes]
+format = '[$context](bold white bg:black)[ \($namespace\)](dimmed white bg:black) '
+disabled = false
+symbol = " "
+
+[directory]
+truncation_length = 8
+truncation_symbol = '…/'
+truncate_to_repo  = true
+read_only = " 󰌾"
+
+[hostname]
+ssh_symbol = "ssh "
+disabled = false
+
+[package]
+symbol = "󰏗 "
+disabled = true
+
+[os]
+disabled = true
+
+[terraform]
+symbol = "tf "
+
+[custom.display]
+when = " [[ ! -z $DISPLAY ]]"
+style = "blue"
+symbol = "X11 "
+command = "echo $DISPLAY"
+#output = "[$output]($style)"
+
