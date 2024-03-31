@@ -17,10 +17,11 @@ URL_NVIM="https://github.com/neovim/neovim/releases/latest/download/nvim.appimag
 URL_RIPGREP="https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb"
 URL_DOCKERGPG="https://download.docker.com/linux/ubuntu/gpg"
 URL_BASH_FZF_TAB_COMP="https://github.com/lincheney/fzf-tab-completion"
+URL_TMUX="https://github.com/nelsonenzo/tmux-appimage/releases/download/3.3a/tmux.appimage"
 
 # Other
 # neovim and tmux are going to be installed from urls
-APT_BASICS="software-properties-common git curl wget gnupg openssl bash-completion python3 python3-pip python3-virtualenv python3-venv ca-certificates gnupg lsb-release man libfuse2 npm unzip"
+APT_BASICS="software-properties-common git curl wget gnupg openssl bash-completion python3 python3-pip python3-virtualenv python3-venv ca-certificates gnupg lsb-release man libfuse2 npm unzip bash-completion"
 GIT_REPO="https://github.com/spacegaucho/desksetup"
 DIR_GIT_REPO="${HOME}/git/desksetup"
 COMMAND_OUT="/tmp/desksetup.log"
@@ -32,17 +33,16 @@ TMP_RIPGREP="/tmp/ripgrep.deb"
 
 install_basics ()
 {
-  # Install basics + awscli and terraform
   DEBIAN_FRONTEND=noninteractive
   sudo apt-get clean
-  sudo apt-add-repository -y "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+  # sudo apt-add-repository -y "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
   sudo add-apt-repository universe
   sudo apt-get update -y
   sudo apt-get install -y ${APT_BASICS}
-  curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-  curl -fsSL ${URL_DOCKERGPG} | sudo gpg --dearmor -o ${FILE_DOCKERGPG}
+  # curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+  # curl -fsSL ${URL_DOCKERGPG} | sudo gpg --dearmor -o ${FILE_DOCKERGPG}
   sudo apt-get update -y
-  sudo apt-get install -y terraform
+  # sudo apt-get install -y terraform
 }
 
 install_nvim ()
@@ -56,7 +56,16 @@ install_nvim ()
   sudo install nvim /usr/bin
   rm nvim
   mkdir -p ~/.config/nvim
-  git clone ${URL_NVCHAD} ~/.config/nvim --depth 1
+#  git clone ${URL_NVCHAD} ~/.config/nvim --depth 1
+}
+
+install_tmux ()
+{
+  # Install nvim
+  curl -Lo tmux ${URL_TMUX}
+  chmod 755 tmux
+  sudo install tmux /usr/bin
+  rm tmux
 }
 
 install_k8sbasics ()
