@@ -1,8 +1,8 @@
 #!/bin/bash
 alias apt-get='sudo apt-get'
 alias gitchecker='bash ~/scripts/sh/gitchecker.sh'
-alias goto_scripts="cd ~/git/scripts/"
-alias goto_tmp="cd ~/tmp/"
+alias g-scripts="cd ~/git/scripts/"
+alias g-tmp="cd ~/tmp/"
 alias k="kubectl"
 alias kcx="kubectl-ctx"
 alias kns="kubectl-ns"
