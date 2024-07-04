@@ -105,6 +105,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+FZF_BASH_COMP_FILE="$HOME/git/fzf-tab-completion/bash/fzf-bash-completion.sh"
+[ ! -f $FZF_BASH_COMP_FILE ] && mkdir -p "${FZF_BASH_COMP_FILE%/*}" && curl "https://raw.githubusercontent.com/lincheney/fzf-tab-completion/master/bash/fzf-bash-completion.sh" -o "${FZF_BASH_COMP_FILE}" && echo "I: bash_completion for fzf setup correctly"
 source $HOME/git/fzf-tab-completion/bash/fzf-bash-completion.sh 
 bind -x '"\t": fzf_bash_completion'
 export K9S_CONFIG_DIR="$HOME/.config/k9s"
