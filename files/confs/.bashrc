@@ -98,6 +98,7 @@ complete -F __start_kubectl k
 [ -f $HOME/.fzf.bash ] && source $HOME/.fzf.bash
 
 [[ -z ${TMUX} ]] && tmux -ls &>/dev/null && echo -e "\e[1;33mWarning:\e[0m Tmux running in another terminal.."
+[ ! -d ~/.tmux/plugins/tpm ] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
