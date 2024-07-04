@@ -107,3 +107,5 @@ export NVM_DIR="$HOME/.nvm"
 
 source $HOME/git/fzf-tab-completion/bash/fzf-bash-completion.sh 
 bind -x '"\t": fzf_bash_completion'
+export K9S_CONFIG_DIR="$HOME/.config/k9s"
+#export XDG_CONFIG_HOME="$HOME/.config"
