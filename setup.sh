@@ -1,142 +1,83 @@
 #!/bin/bash
-# DESCRIPTION: Install/setup minimum customization for bash.
 
-# Files
-FILE_BASHALIASES="files/confs/.bash_aliases"
-FILE_BASHRC="files/confs/.bashrc"
-FILE_KREWINSTALL="files/krewcurlinstall.sh"
-FILE_STARSHIPTOML="files/confs/starship.toml"
-FILE_TMUX="files/confs/.tmux.conf"
-
-# Urls
-URL_FZF="https://github.com/junegunn/fzf.git"
-URL_HELM="https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3"
-URL_LIGHLINE="https://github.com/itchyny/lightline.vim"
-URL_NVCHAD="https://github.com/NvChad/NvChad"
-URL_NVIM="https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
-URL_RIPGREP="https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb"
-URL_DOCKERGPG="https://download.docker.com/linux/ubuntu/gpg"
-URL_BASH_FZF_TAB_COMP="https://github.com/lincheney/fzf-tab-completion"
-URL_TMUX="https://github.com/nelsonenzo/tmux-appimage/releases/download/3.3a/tmux.appimage"
-
-# Other
-# neovim and tmux are going to be installed from urls
-APT_BASICS="software-properties-common git curl wget gnupg openssl bash-completion python3 python3-pip python3-virtualenv python3-venv ca-certificates gnupg lsb-release man libfuse2 npm unzip bash-completion"
-GIT_REPO="https://github.com/spacegaucho/desksetup"
-DIR_GIT_REPO="${HOME}/git/desksetup"
-COMMAND_OUT="/tmp/desksetup.log"
-BACKUP_SFX=".$(date +%s).bk"
-FILE_DOCKERGPG="/usr/share/keyrings/docker-archive-keyring.gpg"
-
-# Temp files
-TMP_RIPGREP="/tmp/ripgrep.deb"
-
-install_basics ()
-{
-  DEBIAN_FRONTEND=noninteractive
-  sudo apt-get clean
-  # sudo apt-add-repository -y "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-  sudo add-apt-repository universe
-  sudo apt-get update -y
-  sudo apt-get install -y ${APT_BASICS}
-  # curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-  # curl -fsSL ${URL_DOCKERGPG} | sudo gpg --dearmor -o ${FILE_DOCKERGPG}
-  sudo apt-get update -y
-  # sudo apt-get install -y terraform
-}
-
-install_nvim ()
-{
-  # Install nvim
-  pip3 install --upgrade pynvim
-  curl -Lo ${TMP_RIPGREP} ${URL_RIPGREP}
-  sudo dpkg -i ${TMP_RIPGREP} 
-  curl -Lo nvim ${URL_NVIM}
-  chmod 755 nvim
-  sudo install nvim /usr/bin
-  rm nvim
-  mkdir -p ~/.config/nvim
-#  git clone ${URL_NVCHAD} ~/.config/nvim --depth 1
-}
-
-install_tmux ()
-{
-  # Install nvim
-  curl -Lo tmux ${URL_TMUX}
-  chmod 755 tmux
-  sudo install tmux /usr/bin
-  rm tmux
-}
-
-install_k8sbasics ()
-{
-  # Install kubectl
-  echo "I: Installing kubectl.."
-  curl -Lso kubectl "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-  sudo chmod 755 kubectl
-  if ! sudo install kubectl /usr/local/bin/; then echo "W: kubectl install failed! Ignore if already installed"; fi
-  rm kubectl
-
-  # Install krew
-  echo "I: Installing krew.."
-  if ! bash ${DIR_GIT_REPO}/${FILE_KREWINSTALL} ; then echo "W: krew install failed!"; fi
-  export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-  if ! kubectl krew install ctx; then echo "W: ctx install failed!"; fi
-  if ! kubectl krew install ns; then echo "W: ns install failed"; fi
-
-  # Install helm
-  echo "I: Installing helm.."
-  if ! curl -s ${URL_HELM} | sudo bash; then echo "W: helm install failed!"; fi
-}
-
-install_fzf ()
-{
-  # Install fzf
-  echo "I: Installing fzf.."
-  if ! git clone --depth 1 ${URL_FZF} ~/.fzf; then echo "W: fialed clone fzf, exists?"; fi
-  ~/.fzf/install --all
-  git -C ${DIR_GIT_REPO} clone ${URL_BASH_FZF_TAB_COMP}
-}
-
-install_starship ()
-{
-  # Install and configure starship
-  echo "I: Installing starship"
-  ln -s ${DIR_GIT_REPO}/${FILE_STARSHIPTOML} ${HOME}/.config/starship.toml
-  curl -s https://starship.rs/install.sh -o /tmp/install_starship.sh
-  sh /tmp/install_starship.sh -y
-  rm /tmp/install_starship.sh
-}
-
-install_confs ()
-{
-  # Install all necessary confs
-  echo "I: Installing confs.."
-	mkdir ~/.config
-  mv ~/.config/starship.toml ~/.config/starship.toml${BACKUP_SFX}
-  mv ~/.bashrc ~/.bashrc${BACKUP_SFX}
-  mv ~/.bash_aliases ~/.bash_aliases${BACKUP_SFX}
-  mv ~/.tmux.conf ~/.tmux.conf${BACKUP_SFX}
-  mv ~/.config/nvim ~/.config/nvim${BACKUP_SFX}
-  mv ~/.local/share/nvim ~/.local/share/nvim${BACKUP_SFX}
-  ln -s ${DIR_GIT_REPO}/${FILE_BASHRC} ${HOME}/
-  ln -s ${DIR_GIT_REPO}/${FILE_BASHALIASES} ${HOME}/
-  ln -s ${DIR_GIT_REPO}/${FILE_TMUX} ${HOME}/
-}
-
-main ()
+install_all ()
 {
   mkdir ~/git
   echo "I: Getting cloning/pulling repo.."
   git clone ${GIT_REPO} ${DIR_GIT_REPO} || git -C ${DIR_GIT_REPO} pull
-  install_basics
-  install_confs
-  install_fzf
-  install_starship
-  install_nvim
-  install_k8sbasics
+  source ./scripts/install-basics.sh
+  source ./scripts/install-confs.sh
+  source ./scripts/install-fzf.sh
+  source ./scripts/install-starship.sh 
+  source ./scripts/install-nvim.sh
+  source ./scripts/install-k8s-basics.sh
+}
+
+upgrade_all ()
+{
+  source ./scripts/install-fzf.sh
+  source ./scripts/install-starship.sh 
+  source ./scripts/install-nvim.sh
+  source ./scripts/install-k8s-basics.sh
+}
+
+install_upgrade_specific ()
+{
+  CHOICE=$(
+  whiptail --title "Select components" --notags --checklist "Selection" 10 80 4 \
+    "fzf" "fzf" 0           \
+    "starship" "starship" 0 \
+    "nvim" "nvim" 0         \
+    "k8s" "k8s" 0 3>&2 2>&1 1>&3 | tr -d '\"'
+  )
+
+  for TASK in ${CHOICE[@]}
+  do 
+    case ${TASK} in
+      "fzf") 
+        source ./scripts/install-fzf.sh
+        ;;
+      "starship")
+        source ./scripts/install-starship.sh
+        ;;
+      "nvim")
+        source  ./scripts/install-nvim.sh
+        ;;
+      "k8s")
+        source ./scripts/install-k8s-basics.sh
+        ;;
+      *)
+        echo "${CHOICE}"
+        ;;
+    esac 
+  done
+}
+
+main ()
+{
+  source ./config.sh
+  CHOICE=$(
+  whiptail --title "Installation options" --notags --menu "Select" 10 80 4 \
+    "1" "Install all from scratch"                         \
+    "2" "Install/Upgrade all components (except basics)"   \
+    "3" "Install/Upgrade specific components"              \
+    "99" "Exit" 3>&2 2>&1 1>&3
+  )
+
+  case $CHOICE in
+    "1") 
+      install_from_scratch
+      ;;
+    "2")
+      upgrade_all
+      ;;
+    "3")
+      install_upgrade_specific
+      ;;
+    "99")
+      exit 0
+      ;;
+  esac  
 }
 
 main
-
-. ~/.bashrc
