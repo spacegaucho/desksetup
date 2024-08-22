@@ -4,7 +4,7 @@ URL_HELM="https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3"
 install_krew ()
 {
   (
-    set -x; cd "$(mktemp -d)" &&
+    cd "$(mktemp -d)" &&
     OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
     ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
     KREW="krew-${OS}_${ARCH}" &&
@@ -17,7 +17,7 @@ install_krew ()
 
 install_kustomize ()
 {
-  curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+  curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash ~/.local/bin
 }
 
 install_k8sbasics ()
