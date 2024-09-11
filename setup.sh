@@ -66,7 +66,7 @@ main ()
 
   case $CHOICE in
     "1") 
-      install_from_scratch
+      install_all
       ;;
     "2")
       upgrade_all
