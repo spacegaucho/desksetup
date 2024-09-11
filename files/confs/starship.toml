@@ -12,14 +12,14 @@ disabled = false
 symbol = " "
 
 [directory]
-truncation_length = 8
+truncation_length = 0
 truncation_symbol = '…/'
-truncate_to_repo  = true
+truncate_to_repo  = false
 read_only = " 󰌾"
 
 [hostname]
 ssh_symbol = "ssh "
-disabled = false
+disabled = false 
 
 [package]
 symbol = "󰏗 "
