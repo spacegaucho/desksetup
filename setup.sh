@@ -1,10 +1,12 @@
 #!/bin/bash
+# https://stackoverflow.com/questions/59895/how-do-i-get-the-directory-where-a-bash-script-is-located-from-within-the-script/246128#246128
 BASE_NAME="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-echo $BASE_NAME
+source ./config.sh
 
 select_scripts () {
   TARGET_DIR="${BASE_NAME}/scripts"
 
+  # https://chatgpt.com/c/674e74d7-8f10-800f-b28d-eb7cb9e12b9a
   # Generate file list for the checklist
   FILE_LIST=()
   for file in "$TARGET_DIR"/*; do
@@ -48,7 +50,6 @@ run_selected () {
 }
 
 main () {
-  source ./config.sh
   run_selected "$(select_scripts)"
 }
 

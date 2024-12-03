@@ -7,7 +7,7 @@ install ()
   # Install and configure starship
   echo "I: Installing starship"
   ln -s ${DIR_GIT_REPO}/${FILE_STARSHIPTOML} ${HOME}/.config/starship.toml
-  curl -qs ${INSTALL_URL} | sh -
+  curl -qs ${INSTALL_URL} | sh -s -- --bin-dir ~/.local/bin
 }
 
 install
