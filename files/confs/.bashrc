@@ -4,6 +4,25 @@
 
 # ~/.bashrc
 
+export GOPATH=$HOME/gopath
+export PIPPATH=$HOME/.local/bin
+export PATH=$PIPPATH:$PIPPATH/bin:$PATH
+export PATH=$PATH:/usr/local/go/bin
+export KUBECONFIG=$HOME/.kube/config
+export KUBE_EDITOR="nvim"
+
+function check_x11() {
+  CURRENT_XSERV=$(echo "${SSH_CONNECTION}" | awk '{print $1}')
+
+  if [[ -n ${CURRENT_XSERV} ]]
+  then
+    export DISPLAY=${CURRENT_XSERV}:11.0
+  else
+    export DISPLAY=:0
+  fi
+}
+check_x11
+
 test -e $(which starship) && eval "$(starship init bash)"
 
 # If not running interactively, don't do anything
@@ -59,7 +78,7 @@ esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    test -r ${HOME}/.dircolors && eval "$(dircolors -b ${HOME}/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto --group-directories-first'
     alias grep='grep --color=auto'
     alias rgrep='grep -r --color=auto'
@@ -67,11 +86,11 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+if [ -f "${HOME}/.bash_aliases" ]; then
+    . "${HOME}/.bash_aliases"
 fi
-if [ -f ~/.hidden.bash_aliases ]; then
-    . ~/.hidden.bash_aliases
+if [ -f "${HOME}/.hidden.bash_aliases" ]; then
+    . "${HOME}/.hidden.bash_aliases"
 fi
 
 if ! shopt -oq posix; then
@@ -84,12 +103,6 @@ fi
 
 bind 'set show-all-if-ambiguous on'
 
-export GOPATH=$HOME/gopath
-export PIPPATH=$HOME/.local/bin
-export PATH=$PIPPATH:$PIPPATH/bin:$PATH
-export PATH=$PATH:/usr/local/go/bin
-export KUBECONFIG=$HOME/.kube/config
-export KUBE_EDITOR="nvim"
 
 source <(kubectl completion bash)
 complete -F __start_kubectl k
@@ -97,7 +110,7 @@ complete -F __start_kubectl k
 [ -f $HOME/.fzf.bash ] && source $HOME/.fzf.bash
 
 [[ -z ${TMUX} ]] && tmux -ls &>/dev/null && echo -e "\e[1;33mWarning:\e[0m Tmux running in another terminal.."
-[ ! -d ~/.tmux/plugins/tpm ] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+[ ! -d ${HOME}/.tmux/plugins/tpm ] && git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -111,4 +124,4 @@ export K9S_CONFIG_DIR="$HOME/.config/k9s"
 #export XDG_CONFIG_HOME="$HOME/.config"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f ${HOME}/.fzf.bash ] && source ${HOME}/.fzf.bash
