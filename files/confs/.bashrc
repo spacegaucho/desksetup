@@ -116,12 +116,23 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# FZF_BASH_COMP_FILE="$HOME/git/fzf-tab-completion/bash/fzf-bash-completion.sh"
-# [ ! -f $FZF_BASH_COMP_FILE ] && mkdir -p "${FZF_BASH_COMP_FILE%/*}" && curl "https://raw.githubusercontent.com/lincheney/fzf-tab-completion/master/bash/fzf-bash-completion.sh" -o "${FZF_BASH_COMP_FILE}" && echo "I: bash_completion for fzf setup correctly"
-# source $HOME/git/fzf-tab-completion/bash/fzf-bash-completion.sh 
-# bind -x '"\t": fzf_bash_completion'
+[ -f $HOME/git/fzf-tab-completion/bash/fzf-bash-completion.sh ] && source $HOME/git/fzf-tab-completion/bash/fzf-bash-completion.sh && bind -x '"\t": fzf_bash_completion'
 export K9S_CONFIG_DIR="$HOME/.config/k9s"
 #export XDG_CONFIG_HOME="$HOME/.config"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 [ -f ${HOME}/.fzf.bash ] && source ${HOME}/.fzf.bash
+
+function kubeconfset() {
+  if [[ $1 == "oidc" ]]
+  then
+    echo "I: Enabling OIDC env"
+    export KUBECONFIG=$HOME/.kube/oidc-config:$(find ~/git/avature/k8s/kubeconfig -type f -name "*.yaml" | tr '\n' ':' | sed 's/:$//')
+  elif [[ $1 == "check" ]]
+  then
+    echo "${KUBECONFIG}"
+  else
+    export KUBECONFIG=""
+  fi
+}
+

@@ -3,8 +3,11 @@ add_newline = true
 
 format = '''
 $kubernetes$aws$git_branch$git_status$terraform$golang$python$custom$character
-$directory
+$username$directory
 '''
+
+[username]
+show_always = false
 
 [directory]
 truncation_length = 0
