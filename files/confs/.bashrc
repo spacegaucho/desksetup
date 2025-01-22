@@ -122,3 +122,4 @@ export K9S_CONFIG_DIR="$HOME/.config/k9s"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 [ -f ${HOME}/.fzf.bash ] && source ${HOME}/.fzf.bash
+. "$HOME/.cargo/env"
