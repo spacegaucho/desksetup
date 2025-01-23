@@ -2,6 +2,7 @@
 # https://stackoverflow.com/questions/59895/how-do-i-get-the-directory-where-a-bash-script-is-located-from-within-the-script/246128#246128
 BASE_NAME="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 source ./config.sh
+source ./files/misc/stdlib.bash
 
 select_scripts () {
   TARGET_DIR="${BASE_NAME}/scripts"
