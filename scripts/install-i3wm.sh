@@ -5,7 +5,7 @@
 # TAG=4.24
 # use ./install-picom.sh as reference
 #
-# 
+URL_GITLAB_CASA_LAN_NVIM="ssh://gitlab.casa.lan:2222/mystuff/i3config"
 REQ_DEB="libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm0 libxcb-xrm-dev automake libxcb-shape0-dev"
 GIT_URL="https://github.com/i3/i3"
 GIT_TAG="4.24"
@@ -26,6 +26,8 @@ pushd .
 cd "${GIT_DIR}/${APP_NAME}-${GIT_TAG}"
 meson build
 cd build/
-sudo ninja install
+udo ninja install
 
 popd
+
+git clone ${URL_GITLAB_CASA_LAN_NVIM} ~/.i3 --depth 1 || git -C ~/.i3 pull
