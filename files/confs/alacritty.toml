@@ -9,10 +9,10 @@ decorations = "Full"
 decorations_theme_variant = "Light" # "Dark"
 
 [font]
-normal.family      = "MesloLGSDZ Nerd Font Mono"
-bold.family        = "MesloLGSDZ Nerd Font Mono"
-italic.family      = "MesloLGSDZ Nerd Font Mono"
-bold_italic.family = "MesloLGSDZ Nerd Font Mono"  
+normal.family      = "FiraCode Nerd Font Mono"
+bold.family        = "FiraCode Nerd Font Mono"
+italic.family      = "FiraCode Nerd Font Mono"
+bold_italic.family = "FiraCode Nerd Font Mono"  
 size = 10
 
 # https://convoluted.bearblog.dev/alacritty-config-example-guide
