@@ -15,18 +15,6 @@ export PATH=$PATH:/usr/local/go/bin
 export KUBECONFIG=$HOME/.kube/config
 export KUBE_EDITOR="nvim"
 
-function check_x11() {
-  CURRENT_XSERV=$(echo "${SSH_CONNECTION}" | awk '{print $1}')
-
-  if [[ -n ${CURRENT_XSERV} ]]
-  then
-    export DISPLAY=${CURRENT_XSERV}:11.0
-  else
-    export DISPLAY=:0
-  fi
-}
-check_x11
-
 test -e $(which starship) && eval "$(starship init bash)"
 
 # If not running interactively, don't do anything
