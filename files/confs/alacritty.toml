@@ -13,6 +13,10 @@ normal.family      = "FiraCode Nerd Font Mono"
 bold.family        = "FiraCode Nerd Font Mono"
 italic.family      = "FiraCode Nerd Font Mono"
 bold_italic.family = "FiraCode Nerd Font Mono"  
-size = 10
+size = 11
 
-# https://convoluted.bearblog.dev/alacritty-config-example-guide
+[general]
+import = [
+    "~/.config/alacritty/themes/themes/catppuccin.toml"
+]
+
