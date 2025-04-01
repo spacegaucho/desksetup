@@ -4,9 +4,9 @@
 
 # ~/.bashrc
 
-bind 'set show-all-if-ambiguous on'
-bind 'TAB:menu-complete'
-bind '"\e[Z":menu-complete-backward'
+#bind 'set show-all-if-ambiguous on'
+#bind 'TAB:menu-complete'
+#bind '"\e[Z":menu-complete-backward'
 
 export GOPATH=$HOME/gopath
 export PIPPATH=$HOME/.local/bin
@@ -26,6 +26,16 @@ function check_x11() {
   fi
 }
 check_x11
+
+function toggle_keyb() {
+  if setxkbmap -print | grep 'alt-intl' 1>/dev/null 2>&1; then
+    echo "I: changed keyboard to us" 
+    setxkbmap -layout us -option nodeadkeys
+  else
+    echo "I: changed keyboard to us alt-intl" 
+    setxkbmap -layout us -variant alt-intl -option nodeadkeys
+  fi
+}
 
 test -e $(which starship) && eval "$(starship init bash)"
 
