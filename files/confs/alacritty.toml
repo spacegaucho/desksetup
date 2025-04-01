@@ -19,4 +19,3 @@ size = 11
 import = [
     "~/.config/alacritty/themes/themes/catppuccin.toml"
 ]
-
