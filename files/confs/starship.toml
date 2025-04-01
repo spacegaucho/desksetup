@@ -2,7 +2,7 @@
 add_newline = true
 
 format = '''
-$kubernetes$aws$git_branch$git_status$terraform$golang$python$custom$character
+$hostname$kubernetes$aws$git_branch$git_status$terraform$golang$python$character
 $username$directory
 '''
 
@@ -23,7 +23,7 @@ error_symbol = "[✗](bold red)"
 [kubernetes]
 format = '[$context/$namespace](blue) '
 disabled = false
-symbol = " "
+symbol = "k8s/"
 
 [package]
 symbol = "󰏗 "
@@ -33,16 +33,17 @@ disabled = true
 disabled = true
 
 [terraform]
-symbol = "tf "
+symbol = "tf/"
 
-[custom.display]
-when = " [[ ! -z $DISPLAY ]] && [[ $DISPLAY != ':0' ]]"
-style = "blue"
-symbol = '🖵 '
-command = "echo remote"
+# [custom.display]
+# when = " [[ ! -z $DISPLAY ]] && [[ $DISPLAY != ':0' ]]"
+# style = "blue"
+# symbol = '🖵 '
+# command = "echo remote"
 
 [aws]
 disabled = true
 
 [hostname]
-disabled = true
+ssh_symbol = "ssh/"
+disabled = false

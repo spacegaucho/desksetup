@@ -4,9 +4,9 @@
 
 # ~/.bashrc
 
-bind 'set show-all-if-ambiguous on'
-bind 'TAB:menu-complete'
-bind '"\e[Z":menu-complete-backward'
+#bind 'set show-all-if-ambiguous on'
+#bind 'TAB:menu-complete'
+#bind '"\e[Z":menu-complete-backward'
 
 export GOPATH=$HOME/gopath
 export PIPPATH=$HOME/.local/bin
