@@ -1,12 +1,14 @@
-#
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
-
-# ~/.bashrc
+#!/bin/bash
 
 #bind 'set show-all-if-ambiguous on'
 #bind 'TAB:menu-complete'
 #bind '"\e[Z":menu-complete-backward'
+
+if [[ -d ~/.bashrc.d/ ]]
+then
+  # shellcheck source=/dev/null
+  source ~/.bashrc.d/*
+fi
 
 export GOPATH=$HOME/gopath
 export PIPPATH=$HOME/.local/bin
@@ -15,28 +17,8 @@ export PATH=$PATH:/usr/local/go/bin
 export KUBECONFIG=$HOME/.kube/config
 export KUBE_EDITOR="nvim"
 
-function check_x11() {
-  CURRENT_XSERV=$(echo "${SSH_CONNECTION}" | awk '{print $1}')
 
-  if [[ -n ${CURRENT_XSERV} ]]
-  then
-    export DISPLAY=${CURRENT_XSERV}:11.0
-  else
-    export DISPLAY=:0
-  fi
-}
-
-function toggle_keyb() {
-  if setxkbmap -print | grep 'alt-intl' 1>/dev/null 2>&1; then
-    echo "I: changed keyboard to us" 
-    setxkbmap -layout us -option nodeadkeys
-  else
-    echo "I: changed keyboard to us alt-intl" 
-    setxkbmap -layout us -variant alt-intl -option nodeadkeys
-  fi
-}
-
-test -e $(which starship) && eval "$(starship init bash)"
+test -e "$(which starship)" && eval "$(starship init bash)"
 
 # If not running interactively, don't do anything
 case $- in
@@ -135,3 +117,25 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 [ -f ${HOME}/.fzf.bash ] && source ${HOME}/.fzf.bash
 [ -f ${HOME}/.cargo/env ] && . "$HOME/.cargo/env"
+
+# User functions
+function check_x11() {
+  CURRENT_XSERV=$(echo "${SSH_CONNECTION}" | awk '{print $1}')
+
+  if [[ -n ${CURRENT_XSERV} ]]
+  then
+    export DISPLAY=${CURRENT_XSERV}:11.0
+  else
+    export DISPLAY=:0
+  fi
+}
+
+function toggle_keyb() {
+  if setxkbmap -print | grep 'alt-intl' 1>/dev/null 2>&1; then
+    echo "I: changed keyboard to us" 
+    setxkbmap -layout us -option nodeadkeys
+  else
+    echo "I: changed keyboard to us alt-intl" 
+    setxkbmap -layout us -variant alt-intl -option nodeadkeys
+  fi
+}
