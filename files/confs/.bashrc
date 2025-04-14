@@ -4,19 +4,19 @@
 #bind 'TAB:menu-complete'
 #bind '"\e[Z":menu-complete-backward'
 
-if [[ -d ~/.bashrc.d/ ]]
-then
-  # shellcheck source=/dev/null
-  source ~/.bashrc.d/*
-fi
-
 export GOPATH=$HOME/gopath
 export PIPPATH=$HOME/.local/bin
 export PATH=$PIPPATH:$PIPPATH/bin:$PATH
 export PATH=$PATH:/usr/local/go/bin
-export KUBECONFIG=$HOME/.kube/config
+# export KUBECONFIG=$HOME/.kube/config
 export KUBE_EDITOR="nvim"
 
+if [[ -d ~/.bashrc.d/ ]]
+then
+  for source_file in ~/.bashrc.d/*; do
+    source "${source_file}"
+  done
+fi
 
 test -e "$(which starship)" && eval "$(starship init bash)"
 
@@ -84,9 +84,6 @@ fi
 if [ -f "${HOME}/.bash_aliases" ]; then
     . "${HOME}/.bash_aliases"
 fi
-if [ -f "${HOME}/.hidden.bash_aliases" ]; then
-    . "${HOME}/.hidden.bash_aliases"
-fi
 
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -98,6 +95,7 @@ fi
 
 bind 'set show-all-if-ambiguous on'
 
+# shellcheck source=/dev/null
 source <(kubectl completion bash)
 complete -F __start_kubectl k
 
@@ -139,3 +137,7 @@ function toggle_keyb() {
     setxkbmap -layout us -variant alt-intl -option nodeadkeys
   fi
 }
+
+# if which direnv > /dev/null; then eval "$(direnv hook bash)"; fi
+if [[ -e ~/.asdf/asdf.sh ]]; then source "$HOME/.asdf/asdf.sh" && source "$HOME/.asdf/completions/asdf.bash"; fi
+# source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/bashrc"
