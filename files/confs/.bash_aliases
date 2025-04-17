@@ -1,4 +1,5 @@
 #!/bin/bash
+alias reset='tput reset'
 alias apt-get='sudo apt-get'
 alias gitchecker='bash ~/scripts/sh/gitchecker.sh'
 alias gitbranchhist="git for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'"
