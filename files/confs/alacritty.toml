@@ -18,5 +18,5 @@ size = 11
 
 [general]
 import = [
-    "~/.config/alacritty/themes/themes/rose_pine.toml"
+    "~/.config/alacritty/themes/themes/rose_pine_moon.toml"
 ]

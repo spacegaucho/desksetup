@@ -12,7 +12,7 @@ select_scripts () {
   FILE_LIST=()
   for file in "$TARGET_DIR"/*; do
       # Add each file as an option with OFF as the default state
-      if echo "$file" | &>/dev/null grep 'install-'
+      if echo "$file" | &>/dev/null grep -E '(install-|configure)'
       then
         FILE_LIST+=("$(basename "$file")" "File" "OFF")
       fi
