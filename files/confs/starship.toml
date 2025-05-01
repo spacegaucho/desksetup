@@ -44,6 +44,11 @@ symbol = "tf/"
 [aws]
 disabled = true
 
+[mise]
+disabled = false
+
 [hostname]
 ssh_symbol = "ssh/"
 disabled = false
+
+
