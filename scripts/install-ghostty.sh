@@ -26,6 +26,7 @@ pushd .
 
 cd "${GIT_DIR}/${APP_NAME}-${GIT_TAG}"
 
+cd ghostty
 zig build -Doptimize=ReleaseFast
 install zig-out/bin/ghostty "${DEFAULT_INSTALL_DIR}"
 
