@@ -7,13 +7,14 @@ opacity = 1
 padding.x = 2
 padding.y = 2
 decorations = "Full"
-decorations_theme_variant = "Light" # "Dark"
+decorations_theme_variant = "Dark" # "Dark"
 
 [font]
-normal.family      = "FiraCode Nerd Font Mono"
-bold.family        = "FiraCode Nerd Font Mono"
-italic.family      = "FiraCode Nerd Font Mono"
-bold_italic.family = "FiraCode Nerd Font Mono"  
+# normal.family      = "ShureTechMono Nerd Font"
+normal.family      = "FiraCode Nerd Font Mono Med"
+# bold.family        = "FiraCode Nerd Font Mono Light"
+# italic.gamily      = "FiraCode Nerd Font Mono Light"
+# bold_italic.family = "FiraCode Nerd Font Mono Light"  
 size = 11
 
 [general]
