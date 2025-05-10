@@ -1,11 +1,27 @@
 #!/bin/bash
-URL_GITLAB_CASA_LAN_NVIM="ssh://gitlab.casa.lan:2222/mystuff/nvim.git"
-URL_NVIM="https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
+REQ_DEB="pynvim"
+GIT_URL="https://github.com/neovim/neovim"
+APP_NAME="${GIT_URL##*/}"
+GIT_DIR="${HOME}/git"
 
-pip3 install --upgrade pynvim
-curl -Lo nvim ${URL_NVIM}
-chmod 755 nvim
-sudo install nvim /usr/bin
-rm nvim
-mkdir -p ~/.config/nvim
-git clone ${URL_GITLAB_CASA_LAN_NVIM} ~/.config/nvim --depth 1 || git -C ~/.config/nvim pull
+GIT_TAG="$(source ${BASE_NAME}/get_latest_tag.sh ${GIT_URL})"
+
+if [[ ! -d "${GIT_DIR}" ]]
+then
+  mkdir -p "${GIT_DIR}"
+fi
+
+git clone --single-branch --branch "${GIT_TAG}" "${GIT_URL}" "${GIT_DIR}/${APP_NAME}-${GIT_TAG}"
+
+sudo apt install -y ${REQ_DEB}
+pip3 install --upgrade 
+
+pushd .
+
+cd "${GIT_DIR}/${APP_NAME}-${GIT_TAG}"
+make CMAKE_BUILD_TYPE=RelWithDebInfo
+sudo make install
+
+popd
+
+source ${BASE_NAME}/scripts/configure-nvim.sh
