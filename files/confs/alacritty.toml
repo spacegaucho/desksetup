@@ -15,7 +15,7 @@ normal.family      = "FiraCode Nerd Font Mono"
 # bold.family        = "FiraCode Nerd Font Mono Light"
 # italic.gamily      = "FiraCode Nerd Font Mono Light"
 # bold_italic.family = "FiraCode Nerd Font Mono Light"  
-size = 8.5
+size = 9.5
 
 [general]
 import = [

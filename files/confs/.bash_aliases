@@ -1,7 +1,7 @@
 #!/bin/bash
 alias reset='tput reset'
 alias apt-get='sudo apt-get'
-alias gitchecker='bash ~/scripts/sh/gitchecker.sh'
+alias gitchecker='bash ~/scripts/sh/git-checker.sh'
 alias gitbranchhist="git for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'"
 alias g-scripts="cd ~/git/scripts/"
 alias g-tmp="cd ~/tmp/"

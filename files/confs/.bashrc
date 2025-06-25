@@ -8,6 +8,7 @@ export GOPATH=$HOME/gopath
 export PIPPATH=$HOME/.local/bin
 export PATH=$PIPPATH:$PIPPATH/bin:$PATH
 export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:${GOPATH}/bin
 # export KUBECONFIG=$HOME/.kube/config
 export KUBE_EDITOR="nvim"
 
