@@ -142,3 +142,5 @@ function toggle_keyb() {
 # if which direnv > /dev/null; then eval "$(direnv hook bash)"; fi
 if [[ -e ~/.asdf/asdf.sh ]]; then source "$HOME/.asdf/asdf.sh" && source "$HOME/.asdf/completions/asdf.bash"; fi
 # source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/bashrc"
+source ~/.kubech/kubech
+source ~/.kubech/completion/kubech.bash
