@@ -32,6 +32,8 @@ then
   done
 fi
 
+eval "$(~/.local/bin/mise activate bash)"
+
 test -e "$(which starship)" && eval "$(starship init bash)"
 
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
