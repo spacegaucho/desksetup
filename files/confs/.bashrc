@@ -1,5 +1,19 @@
 #!/bin/bash
 
+HISTCONTROL=ignoreboth
+HISTTIMEFORMAT="%d/%m/%y %T "
+HISTSIZE=1000000000
+HISTFILESIZE=200000000000
+
+shopt -s histappend
+shopt -s checkwinsize
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
 #bind 'set show-all-if-ambiguous on'
 #bind 'TAB:menu-complete'
 #bind '"\e[Z":menu-complete-backward'
@@ -9,7 +23,6 @@ export PIPPATH=$HOME/.local/bin
 export PATH=$PIPPATH:$PIPPATH/bin:$PATH
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:${GOPATH}/bin
-# export KUBECONFIG=$HOME/.kube/config
 export KUBE_EDITOR="nvim"
 
 if [[ -d ~/.bashrc.d/ ]]
@@ -20,20 +33,6 @@ then
 fi
 
 test -e "$(which starship)" && eval "$(starship init bash)"
-
-# If not running interactively, don't do anything
-case $- in
-    *i*) ;;
-      *) return;;
-esac
-
-HISTCONTROL=ignoreboth
-HISTTIMEFORMAT="%d/%m/%y %T "
-HISTSIZE=1000000000
-HISTFILESIZE=200000000000
-
-shopt -s histappend
-shopt -s checkwinsize
 
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
@@ -142,5 +141,8 @@ function toggle_keyb() {
 # if which direnv > /dev/null; then eval "$(direnv hook bash)"; fi
 if [[ -e ~/.asdf/asdf.sh ]]; then source "$HOME/.asdf/asdf.sh" && source "$HOME/.asdf/completions/asdf.bash"; fi
 # source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/bashrc"
-source ~/.kubech/kubech
-source ~/.kubech/completion/kubech.bash
+
+if [[ -e ~/.kubech/kubech ]]; then
+  source ~/.kubech/kubech
+  source ~/.kubech/completion/kubech.bash
+fi
