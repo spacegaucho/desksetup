@@ -1,0 +1,21 @@
+[tools]
+cookiecutter="latest"
+cosign="latest"
+flux2="latest"
+helm="latest"
+k3d="latest"
+k9s="latest"
+kind="latest"
+krew="latest"
+kubectl="latest"
+kustomize="latest"
+node = "22"
+pipx="latest"
+python="3.12.10"
+slsa-verifier="latest"
+yamllint = "latest"
+yq = "latest"
+jq = "latest"
+
+[env]
+_.path = "~/k8s-bash-helpers:~/git/scripts/sh"
