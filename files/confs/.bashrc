@@ -32,7 +32,6 @@ then
   done
 fi
 
-eval "$(~/.local/bin/mise activate bash)"
 
 test -e "$(which starship)" && eval "$(starship init bash)"
 
@@ -148,3 +147,5 @@ if [[ -e ~/.kubech/kubech ]]; then
   source ~/.kubech/kubech
   source ~/.kubech/completion/kubech.bash
 fi
+
+eval "$(~/.local/bin/mise activate bash)"
