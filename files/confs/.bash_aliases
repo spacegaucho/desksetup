@@ -26,3 +26,4 @@ alias nvim='nvim'
 alias vps="~/scripts/sh/vpnpsitadmin.sh"
 alias vy='XDG_CACHE_HOME=/tmp nvim -c "set syntax=yaml"'
 alias xw='~/scripts/sh/xw.sh'
+alias cal='ncal -b'

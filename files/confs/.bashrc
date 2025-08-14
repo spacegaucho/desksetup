@@ -100,7 +100,7 @@ bind 'set show-all-if-ambiguous on'
 source <(kubectl completion bash)
 complete -F __start_kubectl k
 
-[ -f $HOME/.fzf.bash ] && FZF_DEFAULT_OPTS="--bind tab:down,shift-tab:up" source $HOME/.fzf.bash
+[ -f $HOME/.fzf.bash ] && FZF_DEFAULT_OPTS="--bind ctrl-n:down,ctrl-p:up" source $HOME/.fzf.bash
 
 [[ -z ${TMUX} ]] && tmux -ls &>/dev/null && echo -e "\e[1;33mWarning:\e[0m Tmux running in another terminal.."
 [ ! -d ${HOME}/.tmux/plugins/tpm ] && git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm
