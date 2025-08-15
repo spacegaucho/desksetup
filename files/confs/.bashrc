@@ -1,12 +1,14 @@
 #!/bin/bash
+#shellcheck source=/dev/null
+
+shopt -s histappend
+shopt -s checkwinsize
+bind 'set show-all-if-ambiguous on'
 
 HISTCONTROL=ignoreboth
 HISTTIMEFORMAT="%d/%m/%y %T "
 HISTSIZE=1000000000
 HISTFILESIZE=200000000000
-
-shopt -s histappend
-shopt -s checkwinsize
 
 # If not running interactively, don't do anything
 case $- in
@@ -14,16 +16,15 @@ case $- in
       *) return;;
 esac
 
-#bind 'set show-all-if-ambiguous on'
-#bind 'TAB:menu-complete'
-#bind '"\e[Z":menu-complete-backward'
-
 export GOPATH=$HOME/gopath
 export PIPPATH=$HOME/.local/bin
 export PATH=$PIPPATH:$PIPPATH/bin:$PATH
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:${GOPATH}/bin
 export KUBE_EDITOR="nvim"
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+#### <SOURCE USER STUFF> ######################################################
 
 if [[ -d ~/.bashrc.d/ ]]
 then
@@ -32,8 +33,11 @@ then
   done
 fi
 
+#### </SOURCE USER STUFF> #####################################################
 
 test -e "$(which starship)" && eval "$(starship init bash)"
+
+#### <LEGACY CONFIG> ##########################################################
 
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
@@ -72,20 +76,6 @@ xterm*|rxvt*)
     ;;
 esac
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ${HOME}/.dircolors && eval "$(dircolors -b ${HOME}/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto --group-directories-first'
-    alias grep='grep --color=auto'
-    alias rgrep='grep -r --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
-if [ -f "${HOME}/.bash_aliases" ]; then
-    . "${HOME}/.bash_aliases"
-fi
-
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
@@ -94,30 +84,56 @@ if ! shopt -oq posix; then
   fi
 fi
 
-bind 'set show-all-if-ambiguous on'
+#### </LEGACY CONFIG> #########################################################
 
-# shellcheck source=/dev/null
+#### <ALIAS> ##################################################################
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r "${HOME}/.dircolors" && eval "$(dircolors -b ${HOME}/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto --group-directories-first'
+    alias grep='grep --color=auto'
+    alias rgrep='grep -r --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+if [ -f "${HOME}/.bash_aliases" ]; then
+  . "${HOME}/.bash_aliases"
+fi
+
+#### </ALIAS> #################################################################
+
+#### <CUSTOM CONF> ############################################################
+
+# KUBECTL
 source <(kubectl completion bash)
 complete -F __start_kubectl k
 
-[ -f $HOME/.fzf.bash ] && FZF_DEFAULT_OPTS="--bind ctrl-n:down,ctrl-p:up" source $HOME/.fzf.bash
+# FZF
+[ -f "$HOME/.fzf.bash" ] && FZF_DEFAULT_OPTS="--bind ctrl-n:down,ctrl-p:up" source "$HOME/.fzf.bash" 
+[ -f "$HOME/git/fzf-tab-completion/bash/fzf-bash-completion.sh" ] && source "$HOME/git/fzf-tab-completion/bash/fzf-bash-completion.sh" && bind -x '"\t": fzf_bash_completion'
 
+# TMUX
 [[ -z ${TMUX} ]] && tmux -ls &>/dev/null && echo -e "\e[1;33mWarning:\e[0m Tmux running in another terminal.."
-[ ! -d ${HOME}/.tmux/plugins/tpm ] && git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm
+[ ! -d "${HOME}/.tmux/plugins/tpm" ] && git clone https://github.com/tmux-plugins/tpm "${HOME}/.tmux/plugins/tpm"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-[ -f $HOME/git/fzf-tab-completion/bash/fzf-bash-completion.sh ] && source $HOME/git/fzf-tab-completion/bash/fzf-bash-completion.sh && bind -x '"\t": fzf_bash_completion'
+# K9s
 export K9S_CONFIG_DIR="$HOME/.config/k9s"
 #export XDG_CONFIG_HOME="$HOME/.config"
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
-[ -f ${HOME}/.fzf.bash ] && source ${HOME}/.fzf.bash
-[ -f ${HOME}/.cargo/env ] && . "$HOME/.cargo/env"
+[ -f "${HOME}/.cargo/env" ] && . "$HOME/.cargo/env"
 
-# User functions
+# KUBECH
+if [[ -e ~/.kubech/kubech ]]; then
+  source ~/.kubech/kubech
+  source ~/.kubech/completion/kubech.bash
+fi
+
+# MISE
+eval "$(~/.local/bin/mise activate bash)"
+
+# USER FUNCTIONS
 function check_x11() {
   CURRENT_XSERV=$(echo "${SSH_CONNECTION}" | awk '{print $1}')
 
@@ -143,9 +159,4 @@ function toggle_keyb() {
 if [[ -e ~/.asdf/asdf.sh ]]; then source "$HOME/.asdf/asdf.sh" && source "$HOME/.asdf/completions/asdf.bash"; fi
 # source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/bashrc"
 
-if [[ -e ~/.kubech/kubech ]]; then
-  source ~/.kubech/kubech
-  source ~/.kubech/completion/kubech.bash
-fi
-
-eval "$(~/.local/bin/mise activate bash)"
+#### </CUSTOM CONF> ###########################################################
