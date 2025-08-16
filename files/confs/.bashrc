@@ -3,7 +3,7 @@
 
 shopt -s histappend
 shopt -s checkwinsize
-bind 'set show-all-if-ambiguous on'
+#bind 'set show-all-if-ambiguous on'
 
 HISTCONTROL=ignoreboth
 HISTTIMEFORMAT="%d/%m/%y %T "
