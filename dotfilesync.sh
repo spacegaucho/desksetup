@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+
+. files/misc/stdlib.bash
+
 CONFS="$HOME/git/desksetup/
 $HOME/.config/nvim/
 $HOME/.i3/
@@ -5,7 +9,11 @@ $HOME/scripts/"
 
 for CONF_DIR in ${CONFS}
 do
-  echo "I: updating ${CONF_DIR}"
-  git -C "${CONF_DIR}" pull 
+  if [[ -d "${CONF_DIR}" ]]; then
+    echo "I: updating ${CONF_DIR}"
+    git -C "${CONF_DIR}" pull
+  else
+    echo "${CONF_DIR} does not exist in this host, skipping"
+  fi
 done
 
