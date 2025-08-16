@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-export PATH="$HOME/desksetup:$HOME/desksetup/misc/:$PATH"
+export PATH="$HOME/desksetup:$HOME/desksetup/files/misc/:$PATH"
 
 . stdlib.bash
 
@@ -11,10 +11,10 @@ $HOME/scripts/"
 for CONF_DIR in ${CONFS}
 do
   if [[ -d "${CONF_DIR}" ]]; then
-    echo "I: updating ${CONF_DIR}"
+    msgOK "updating ${CONF_DIR}"
     git -C "${CONF_DIR}" pull
   else
-    echo "${CONF_DIR} does not exist in this host, skipping"
+    msgWarning "${CONF_DIR} does not exist in this host, skipping"
   fi
 done
 
