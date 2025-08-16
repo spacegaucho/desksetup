@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
+export PATH="$HOME/desksetup:$HOME/desksetup/misc/:$PATH"
 
-. files/misc/stdlib.bash
+. stdlib.bash
 
 CONFS="$HOME/git/desksetup/
 $HOME/.config/nvim/
