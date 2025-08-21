@@ -16,7 +16,6 @@ alias llt='ls -ahlFtr --color'
 alias p='ping'
 alias s="ssh"
 alias sk="~/git/scripts/sh/ssh-login-keytransfer.sh"
-alias ssh_clean_offending="~/scripts/sh/ssh_remove_offending_ip_key.sh"
 alias tf="terraform"
 alias venv_ansible='. ~/virtualenv/py3.12_ansible/bin/activate'
 # Using XDG_CACHE_HOME=/tmp solves an issue where a path is too long https://github.com/neovim/neovim/issues/29372#issuecomment-2307019287
@@ -27,3 +26,4 @@ alias vps="~/scripts/sh/vpnpsitadmin.sh"
 alias vy='XDG_CACHE_HOME=/tmp nvim -c "set syntax=yaml"'
 alias xw='~/scripts/sh/xw.sh'
 alias cal='ncal -b'
+alias ssh-keygen-rsa4096="ssh-keygen -t rsa -b 4096 -N '' -C '' -f " # better yet, make a script
