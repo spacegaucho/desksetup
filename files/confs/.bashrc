@@ -3,7 +3,7 @@
 
 set -o vi
 # bind -x '"\M-\C-l": "clear"'
-bind -x '"\e[1;5L": "clear"'
+bind -x '"\e[1;5L": "tput reset"'
 export EDITOR="nvim"
 shopt -s histappend
 shopt -s checkwinsize
