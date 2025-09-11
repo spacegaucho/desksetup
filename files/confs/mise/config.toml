@@ -16,6 +16,7 @@ slsa-verifier="latest"
 yamllint = "latest"
 yq = "latest"
 jq = "latest"
+uv = "latest"
 
 [env]
 _.path = "~/k8s-bash-helpers:~/git/scripts/sh"

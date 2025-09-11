@@ -21,3 +21,9 @@ size = 12
 import = [
     "~/.config/alacritty/themes/themes/rose_pine_moon.toml"
 ]
+
+[keyboard]
+bindings = [
+  # { key = "l", mods = "control|alt", chars = "\u001b\u000c" }
+  { key = "l", mods = "control|alt", chars = "\u001b[1;5L" }
+]

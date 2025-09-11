@@ -1,6 +1,10 @@
 #!/bin/bash
 #shellcheck source=/dev/null
 
+set -o vi
+# bind -x '"\M-\C-l": "clear"'
+bind -x '"\e[1;5L": "clear"'
+export EDITOR="nvim"
 shopt -s histappend
 shopt -s checkwinsize
 #bind 'set show-all-if-ambiguous on'
