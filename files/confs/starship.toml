@@ -47,5 +47,3 @@ disabled = true
 [hostname]
 ssh_symbol = "ssh/"
 disabled = false
-
-
