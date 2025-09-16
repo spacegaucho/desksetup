@@ -3,58 +3,46 @@
 # https://stackoverflow.com/questions/59895/how-do-i-get-the-directory-where-a-bash-script-is-located-from-within-the-script/246128#246128
 
 BASE_NAME="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
-source ./config.sh
-source ./files/misc/stdlib.bash
 
-select_scripts() {
-  TARGET_DIR="${BASE_NAME}/scripts"
+source "${BASE_NAME}"/config.sh
+source "${BASE_NAME}"/files/misc/stdlib.bash
 
-  # https://chatgpt.com/c/674e74d7-8f10-800f-b28d-eb7cb9e12b9a
-  # Generate file list for the checklist
-  FILE_LIST=()
-  for file in "$TARGET_DIR"/*; do
-    # Add each file as an option with OFF as the default state
-    if echo "$file" | &>/dev/null grep -E '(install-|configure)'; then
-      FILE_LIST+=("$(basename "$file")" "File" "OFF")
+SCRIPTS_DIR="${BASE_NAME}/scripts"
+
+find_cmd() {
+  find "${SCRIPTS_DIR}" -type f -name 'configure-*' -or -name 'install-*'
+}
+
+fzf_cmd() {
+  fzf --preview 'bat -f {}' --preview-window right:50%
+}
+
+pre_req() {
+  for PRE_REQ in ${1}; do
+    if ! which "${PRE_REQ}" &>/dev/null; then
+      if userInput "Required package: ${PRE_REQ} not present.. do you want to install it now?"; then
+        if source "${SCRIPTS_DIR}"/install-"${PRE_REQ}".sh; then
+          msgOK "Successfully installed ${PRE_REQ}"
+        else
+          msgError "Error installing ${PRE_REQ}"
+          exit 1
+        fi
+      else
+        msgError "Missing required applications: ${PRE_REQ}"
+        exit 1
+      fi
     fi
   done
-
-  # Check if there are files to display
-  if [ ${#FILE_LIST[@]} -eq 0 ]; then
-    echo "No files found in the directory."
-    exit 1
-  fi
-
-  # Display the checklist dialog
-  SELECTED=$(whiptail --title "File Selector" \
-    --checklist "Select files:" 20 78 15 \
-    "${FILE_LIST[@]}" \
-    3>&1 1>&2 2>&3)
-
-  # Check the exit status to handle Cancel
-  if [ $? -ne 0 ]; then
-    echo "Selection canceled."
-    exit 1
-  fi
-
-  # Process the selected files
-  if [ -n "$SELECTED" ]; then
-    for file in $SELECTED; do
-      echo "$TARGET_DIR/${file//\"/}"
-    done
-  else
-    echo "No files selected."
-  fi
 }
 
-run_selected() {
-  for script in ${1}; do
-    source ${script}
-  done
-}
+pre_req fzf
 
-main() {
-  run_selected "$(select_scripts)"
-}
+# ANSI quoting to interpret \n as newline -> $'\n'
+IFS=$'\n' read -r -d '' -a SELECTED < <( find_cmd | fzf_cmd )
 
-main
+for i in "${!SELECTED[@]}"; do
+  echo Running "${SELECTED[i]}"
+  source "${SELECTED[i]}"
+done
+
+
