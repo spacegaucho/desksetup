@@ -1,7 +1,7 @@
 #!/bin/bash
 #shellcheck source=/dev/null
 
-set -o vi
+# set -o vi
 # bind -x '"\M-\C-l": "clear"'
 export EDITOR="nvim"
 shopt -s histappend
