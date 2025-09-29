@@ -6,8 +6,6 @@ alias gitbranchhist="git for-each-ref --sort=committerdate refs/heads/ --format=
 alias g-scripts="cd ~/git/scripts/"
 alias g-tmp="cd ~/tmp/"
 alias k="kubectl"
-alias kcx="kubectl-ctx"
-alias kns="kubectl-ns"
 alias l='ls -hCF --color'
 alias la='ls -hA --color'
 alias ll='ls -ahlF --color'
@@ -27,3 +25,4 @@ alias vy='XDG_CACHE_HOME=/tmp nvim -c "set syntax=yaml"'
 alias xw='~/scripts/sh/xw.sh'
 alias cal='ncal -b'
 alias ssh-keygen-rsa4096="ssh-keygen -t rsa -b 4096 -N '' -C '' -f " # better yet, make a script
+alias cd="rcd"

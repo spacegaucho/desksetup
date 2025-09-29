@@ -17,6 +17,7 @@ yamllint = "latest"
 yq = "latest"
 jq = "latest"
 uv = "latest"
+cilium-cli = "latest"
 
 [env]
 _.path = "~/k8s-bash-helpers:~/git/scripts/sh"
