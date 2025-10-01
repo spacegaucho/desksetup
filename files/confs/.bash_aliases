@@ -25,4 +25,3 @@ alias vy='XDG_CACHE_HOME=/tmp nvim -c "set syntax=yaml"'
 alias xw='~/scripts/sh/xw.sh'
 alias cal='ncal -b'
 alias ssh-keygen-rsa4096="ssh-keygen -t rsa -b 4096 -N '' -C '' -f " # better yet, make a script
-alias cd="rcd"
