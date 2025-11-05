@@ -136,18 +136,6 @@ fi
 # MISE
 eval "$(~/.local/bin/mise activate bash)"
 
-# # USER FUNCTIONS
-# function check_x11() {
-#   CURRENT_XSERV=$(echo "${SSH_CONNECTION}" | awk '{print $1}')
-#
-#   if [[ -n ${CURRENT_XSERV} ]]
-#   then
-#     export DISPLAY=${CURRENT_XSERV}:11.0
-#   else
-#     export DISPLAY=:0
-#   fi
-# }
-
 function toggle_keyb() {
   if setxkbmap -print | grep 'alt-intl' 1>/dev/null 2>&1; then
     echo "I: changed keyboard to us" 
