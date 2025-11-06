@@ -10,7 +10,7 @@ $directory
 show_always = false
 
 [directory]
-truncation_length = 0
+truncation_length = 1
 truncation_symbol = '…/'
 truncate_to_repo  = false
 read_only = " 󰌾"
