@@ -10,12 +10,8 @@ decorations = "Full"
 decorations_theme_variant = "Dark" # "Dark"
 
 [font]
-# normal.family      = "ShureTechMono Nerd Font"
-# normal.family      = "FiraCode Nerd Font Mono"
-bold.family        = "FiraCode Nerd Font Mono Light"
-# italic.gamily      = "FiraCode Nerd Font Mono Light"
-# bold_italic.family = "FiraCode Nerd Font Mono Light"  
-size = 9.5
+normal.family      = "FiraCode Nerd Font Mono Light"
+size = 10
 
 [general]
 import = [
