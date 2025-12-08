@@ -19,3 +19,4 @@ do
   fi
 done
 
+nvim --headless "+Lazy! sync" +qa
