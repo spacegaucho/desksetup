@@ -108,6 +108,8 @@ fi
 #### </ALIAS> #################################################################
 
 #### <CUSTOM CONF> ############################################################
+# MISE
+eval "$(~/.local/bin/mise activate bash)"
 
 # KUBECTL
 source <(kubectl completion bash)
@@ -132,9 +134,6 @@ if [[ -e ~/.kubech/kubech ]]; then
   source ~/.kubech/kubech
   source ~/.kubech/completion/kubech.bash
 fi
-
-# MISE
-eval "$(~/.local/bin/mise activate bash)"
 
 function toggle_keyb() {
   if setxkbmap -print | grep 'alt-intl' 1>/dev/null 2>&1; then
