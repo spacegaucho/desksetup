@@ -1,8 +1,9 @@
 #!/bin/bash
-CONF_FILE="tmux.conf"
-CONFS="./files/confs"
+CONF_FILE=".tmux.conf"
+CONFS="files/confs"
 DEST="${HOME}"
 
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm || true
 
 if [[ ! -d "${DEST}" ]]
 then
