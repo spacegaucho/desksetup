@@ -19,7 +19,7 @@ fzf_cmd() {
 
 pre_req() {
   for PRE_REQ in ${1}; do
-    if ! which "${PRE_REQ}" &>/dev/null; then
+    if ! which "${PRE_REQ}"; then
       if userInput "Required package: ${PRE_REQ} not present.. do you want to install it now?"; then
         if source "${SCRIPTS_DIR}"/install-"${PRE_REQ}".sh; then
           msgOK "Successfully installed ${PRE_REQ}"
