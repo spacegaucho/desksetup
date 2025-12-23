@@ -116,8 +116,14 @@ source <(kubectl completion bash)
 complete -F __start_kubectl k
 
 # FZF
-[ -f "$HOME/.fzf.bash" ] && FZF_DEFAULT_OPTS="--bind ctrl-n:down,ctrl-p:up" source "$HOME/.fzf.bash" 
-[ -f "$HOME/git/fzf-tab-completion/bash/fzf-bash-completion.sh" ] && source "$HOME/git/fzf-tab-completion/bash/fzf-bash-completion.sh" && bind -x '"\t": fzf_bash_completion'
+if which fzf &>/dev/null ; then
+  export FZF_DEFAULT_OPTS="--bind ctrl-n:down,ctrl-p:up" 
+  source <(fzf --bash) 
+  if [ -f "$HOME/git/fzf-tab-completion/bash/fzf-bash-completion.sh" ]; then 
+    source "$HOME/git/fzf-tab-completion/bash/fzf-bash-completion.sh" 
+    bind -x '"\t": fzf_bash_completion' ;
+  fi
+fi
 
 # TMUX
 [[ -z ${TMUX} ]] && tmux -ls &>/dev/null && echo -e "\e[1;33mWarning:\e[0m Tmux running in another terminal.."
