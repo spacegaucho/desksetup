@@ -26,8 +26,8 @@ alias xw='~/scripts/sh/xw.sh'
 alias cal='ncal -b'
 alias ssh-keygen-rsa4096="ssh-keygen -t rsa -b 4096 -N '' -C '' -f " # better yet, make a script
 # Git
-alias g_a='git add -A'
-alias g_c='git commit-autogen.sh'
-alias g_p='git push origin HEAD'
-alias g_ac='g_a && g_c'
-alias g_acp='g_a && g_c && g_p'
+alias ga='git add -A'
+alias gc='git commit-autogen.sh'
+alias gp='git push origin HEAD'
+alias gac='ga && gc'
+alias gacp='ga && gc && gp'

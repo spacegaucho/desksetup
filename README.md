@@ -42,6 +42,8 @@ Commonly required software
 - crictl
 - fd
 - flux2
+- fzf
+- go
 - helm
 - k3d
 - k9s
@@ -49,10 +51,9 @@ Commonly required software
 - kompose
 - krew
 - kubectl
-- kubectl
-- kustomize
 - kustomize
 - neovim
+- neovim@v0.11.2 (wait until v0.11.5 to upgrade since there's a lot of broken stuff)
 - node
 - pipx
 - python
@@ -60,12 +61,15 @@ Commonly required software
 - ripgrep
 - rust
 - slsa
+- starship
 - usage
 - yq
 - zig
-- fzf
-- starship
 
-# Stuff that needs to be installed
+# Github
+`curl -L https://api.github.com/repos/${NAMESPACE}/${REPO}/releases/latest`
+## Regular git installer
 - https://github.com/alacritty/alacritty
--  
+- `curl -LO "$(curl -Ls https://api.github.com/repos/obsidianmd/obsidian-releases/releases/latest | jq -r '.assets.[] | select(.name |  test(".*AppImage")) | select(.name | test(".*arm.*") | not) | .browser_download_url')" && chmod 755 Obsiadian-* && sudo install Obsiadian-* /usr/bin/obsidian `
+## Manual installation
+- https://obsidian.md/download
