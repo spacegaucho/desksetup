@@ -28,6 +28,7 @@ alias ssh-keygen-rsa4096="ssh-keygen -t rsa -b 4096 -N '' -C '' -f " # better ye
 # Git
 alias ga='git add -A'
 alias gc='git commit-autogen.sh'
-alias gp='git push origin HEAD'
+alias gp='git pull'
+alias gP='git push origin HEAD'
 alias gac='ga && gc'
-alias gacp='ga && gc && gp'
+alias gacp='ga && gc && gP'
