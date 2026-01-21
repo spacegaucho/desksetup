@@ -1,4 +1,5 @@
 #!/bin/bash
+alias ..='cd ..'
 alias reset='tput reset'
 alias apt-get='sudo apt-get'
 alias gitchecker='bash ~/scripts/sh/git-checker.sh'

@@ -15,7 +15,7 @@ size = 10
 
 [general]
 import = [
-    "~/.config/alacritty/themes/themes/rose_pine_moon.toml"
+    "~/.config/alacritty/themes/themes/tokyo_night_storm.toml"
 ]
 
 [keyboard]
