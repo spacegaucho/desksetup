@@ -19,5 +19,5 @@ do
   fi
 done
 
-echo "I: Updating Mason"
+msgInfo "Updating Mason"
 nvim --headless -c 'Lazy! sync' -c 'MasonUpdateAll' -c 'qall!' &>/dev/null
