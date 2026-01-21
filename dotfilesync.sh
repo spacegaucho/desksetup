@@ -19,4 +19,5 @@ do
   fi
 done
 
-nvim --headless -c 'Lazy! sync' -c 'MasonUpdateAll' -c 'qall!'
+echo "I: Updating Mason"
+nvim --headless -c 'Lazy! sync' -c 'MasonUpdateAll' -c 'qall!' &>/dev/null
