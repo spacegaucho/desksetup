@@ -20,6 +20,8 @@ import = [
 
 [keyboard]
 bindings = [
-  # { key = "l", mods = "control|alt", chars = "\u001b\u000c" }
-  { key = "l", mods = "control|alt", chars = "\u001b[1;5L" }
+  # Apparently for some linux distros this is necessary, not for arch though
+  # { key = "l", mods = "control|alt", chars = "\u001b[1;5L" },
 ]
+
+
