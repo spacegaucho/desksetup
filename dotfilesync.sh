@@ -13,8 +13,7 @@ for CONF_DIR in ${CONFS}
 do
   if [[ -d "${CONF_DIR}" ]]; then
     msgInfo "updating ${CONF_DIR}"
-    git -C "${CONF_DIR}" pull || git -C "${CONF_DIR}" pull --rebase || \
-    git -C "${CONF_DIR}" pull  --ff-only
+    git -C "${CONF_DIR}" pull
   else
     msgWarning "${CONF_DIR} does not exist in this host, skipping"
   fi
