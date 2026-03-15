@@ -13,11 +13,11 @@ for CONF_DIR in ${CONFS}
 do
   if [[ -d "${CONF_DIR}" ]]; then
     msgInfo "${CONF_DIR}"
-    git -C "${CONF_DIR}" pull
-    git -C "${CONF_DIR}" status -s
-    git -C "${CONF_DIR}" add -A
-    git -C "${CONF_DIR}" commit -m "auto saved by $0"
-    git -C "${CONF_DIR}" push origin HEAD
+    git -C "${CONF_DIR}" pull 2>&1
+    git -C "${CONF_DIR}" status -s 2>&1
+    git -C "${CONF_DIR}" add -A 2>&1
+    git -C "${CONF_DIR}" commit -m "auto saved by $0" 2>&1
+    git -C "${CONF_DIR}" push origin HEAD 2>&1
   else
     msgWarning "${CONF_DIR} does not exist in this host, skipping"
   fi
