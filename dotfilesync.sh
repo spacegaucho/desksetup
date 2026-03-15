@@ -15,7 +15,7 @@ do
     msgInfo "${CONF_DIR}"
     git -C "${CONF_DIR}" pull
     git -C "${CONF_DIR}" status -s
-    read -n1 -p type here
+    read -n1 -p "type here"
   else
     msgWarning "${CONF_DIR} does not exist in this host, skipping"
   fi
