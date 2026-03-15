@@ -15,7 +15,9 @@ do
     msgInfo "${CONF_DIR}"
     git -C "${CONF_DIR}" pull
     git -C "${CONF_DIR}" status -s
-    read -n1 -p "type here"
+    git -C "${CONF_DIR}" add -A
+    git -C "${CONF_DIR}" commit -m "auto saved by $0"
+    git -C "${CONF_DIR}" push origin HEAD
   else
     msgWarning "${CONF_DIR} does not exist in this host, skipping"
   fi
