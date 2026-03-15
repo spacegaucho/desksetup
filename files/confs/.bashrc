@@ -3,6 +3,7 @@
 
 # set -o vi
 # bind -x '"\M-\C-l": "clear"'
+export DISPLAY=:0
 export EDITOR="nvim"
 shopt -s histappend
 shopt -s checkwinsize
