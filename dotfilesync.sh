@@ -24,6 +24,4 @@ do
 done
 
 msgInfo "Updating Mason"
-echo $gray
 nvim --headless -c 'Lazy! sync' -c 'MasonUpdateAll' -c 'qall!' 2>&1 | tail -3
-echo $reset
