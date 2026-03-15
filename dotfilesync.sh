@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-export PATH="$HOME/desksetup:$HOME/desksetup/files/misc/:$PATH"
+export PATH="$HOME/desksetup:$HOME/desksetup/files/misc:$PATH"
 
 . stdlib.bash
 
@@ -12,6 +12,7 @@ $HOME/scripts/"
 for CONF_DIR in ${CONFS}
 do
   if [[ -d "${CONF_DIR}" ]]; then
+    git -C "${CONF_DIR}" status
     msgInfo "updating ${CONF_DIR}"
     git -C "${CONF_DIR}" pull
   else
