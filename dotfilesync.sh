@@ -12,8 +12,7 @@ $HOME/scripts/"
 for CONF_DIR in ${CONFS}
 do
   if [[ -d "${CONF_DIR}" ]]; then
-    git -C "${CONF_DIR}" status
-    msgInfo "updating ${CONF_DIR}"
+    msgInfo "${CONF_DIR}"
     git -C "${CONF_DIR}" pull
   else
     msgWarning "${CONF_DIR} does not exist in this host, skipping"
