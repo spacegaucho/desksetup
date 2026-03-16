@@ -14,7 +14,7 @@ find_cmd() {
 }
 
 fzf_cmd() {
-  fzf --preview 'bat -f {}' --preview-window right:50%
+  fzf --multi --preview 'bat -f {}' --preview-window right:50% --no-sort
 }
 
 pre_req() {
@@ -38,7 +38,7 @@ pre_req() {
 pre_req fzf
 
 # ANSI quoting to interpret \n as newline -> $'\n'
-IFS=$'\n' read -r -d '' -a SELECTED < <( find_cmd | fzf_cmd )
+IFS=$'\n' read -r -d '' -a SELECTED < <( find_cmd | sort | fzf_cmd )
 
 for i in "${!SELECTED[@]}"; do
   echo Running "${SELECTED[i]}"
