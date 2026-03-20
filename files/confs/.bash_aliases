@@ -6,7 +6,7 @@ alias gitchecker='bash ~/scripts/sh/git-checker.sh'
 alias gitbranchhist="git for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'"
 alias g-scripts="cd ~/git/scripts/"
 alias g-tmp="cd ~/tmp/"
-alias k="kubectl"
+alias k="kubecolor"
 alias l='ls -hCF --color'
 alias la='ls -hA --color'
 alias ll='ls -ahlF --color'
@@ -32,8 +32,7 @@ alias gc='git commit-autogen.sh'
 alias gp='git pull'
 alias gP='git push origin HEAD'
 alias gC='git checkout'
-alias gac='ga && gc'
-alias gacp='ga && gc && gP'
+alias gS='git status'
 alias gcd='cd "$(git rev-parse --show-toplevel)"'
 # Custom
 alias pwds='pwd > ~/tmp/dir; echo "Stashed $(cat ~/tmp/dir) in ~/tmp/dir.."'
