@@ -20,6 +20,7 @@ cilium-cli = "latest"
 fd = "latest"
 eza = "latest"
 bat = "latest"
+"github:kubecolor/kubecolor" = "latest"
 
 [env]
 _.path = "~/k8s-bash-helpers:~/git/scripts/sh"
